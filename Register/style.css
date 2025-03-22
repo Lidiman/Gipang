@@ -1,0 +1,103 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(255, 0, 0);
+}
+
+.in{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 320px;
+    height: 390px;
+    border-radius: 20px;
+    padding: 30px 40px;
+
+
+}
+
+.in, h1{
+    color: white;
+    display: grid;
+    justify-content: center;
+}
+
+.in input{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 200%;
+    height: 30px;
+    background: transparent;
+    display: flex;
+    transform: translateX(-93px);
+    color: white;
+    border: none;
+}
+
+.undr {
+    display:block;
+    width: 200%;
+    height: 2px;
+    background-color: white; /*change color*/
+    transform: translateX(-93px);
+  }
+
+.in button{
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    width: 200%;
+    height: 30px;
+    border-radius: 30px;
+    transform: translateX(-93px);
+}
+
+button{
+    transition: 1s;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+}
+
+.in button:hover{
+    transition: 1s;
+    background-color: black;
+    color: white;
+
+}
+
+select{
+    position: relative;
+    display: inline-block;
+    width: 200%;
+    height: 30px;
+    background: transparent;
+    color: white;
+    border: none;
+    transform: translateX(-93px);
+}
+
+select option{
+    color: black;
+}
+
+
+#myVideo {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+ }
