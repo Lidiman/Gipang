@@ -1,87 +1,85 @@
-body{
+body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background: black;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #47663B;
-    
-  }
-  
-  nav ul {
-    display: flex;
-    list-style: none;
-    transform: translateY(10%);
-  }
-  
-  nav li {
-    padding-left: 1rem;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: rgb(31, 69, 41);
-  }
+  padding: 0;
+  margin: 0;
+}
 
-  nav h2{
-    color:rgb(71, 102, 59);
-  }
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #47663B;
+  position: relative;
+  z-index: 100;
+}
 
-  header {
-    background-color: #48e24f;
-    padding: 20px 0;
-    text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("img/hd.jpg");
-    background-size: cover; 
-    background-position: center; 
-    background-color: #48e24f;
-    backdrop-filter: blur(10px); 
-    padding: 20px 0;
-    height: 300px;
-    text-align: center;
-  }
-  
-  header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #6eb180;
-  }
-  
-  header p {
-    font-size: 1.2em;
-    color: #a2aeb9;
-  }
+nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
 
-header, .search{
+nav li {
+  padding-left: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgb(31, 69, 41);
+}
+
+nav h2 {
+  color: rgb(71, 102, 59);
+}
+
+header {
+  background-color: #48e24f;
+  padding: 20px 0;
+  text-align: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("img/hd.jpg");
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px);
+  height: 300px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #6eb180;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #a2aeb9;
+}
+
+header, .search {
   padding: 20px;
 }
 
-.search, input{
+.search, input {
   display: flex;
   justify-content: center;
   border-radius: 5px;
   padding: 10px;
-  border:none;
+  border: none;
 }
 
-.search{
+.search {
   gap: 20px;
 }
 
-input{
+input {
   width: 50%;
 }
 
-header button{
+header button {
   background-color: rgb(31, 69, 41);
   color: white;
   border: none;
@@ -91,7 +89,7 @@ header button{
   transition: 1s;
 }
 
-button:hover{
+button:hover {
   background-color: #f8f9fa;
   color: black;
   transition: 1s;
@@ -99,30 +97,92 @@ button:hover{
 
 article {
   display: flex;
-  flex-wrap: wrap; 
-  flex-direction: row; 
-  justify-content: center; 
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
 }
 
 .food-item {
-  border: 1px solid #ffffff; 
+  border: 1px solid #ffffff;
   border-radius: 5px;
   padding: 15px;
-  text-align: center;  
-  width: 300px; 
+  text-align: center;
+  width: 300px;
   color: rgb(0, 0, 0);
   background-color: rgb(69, 114, 63);
+  transition: transform 0.3s ease;
 }
 
 .food-item img {
-    max-width: 100%; 
-    height: auto; 
-    display: block; 
-    margin-bottom: 10px; 
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
 }
 
+.food-item:hover {
+  transform: scale(1.1);
+}
 
+/* New styles for user profile in nav */
+.nav-profile {
+  position: relative;
 
+}
 
+.nav-profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+  height: 40px;
+  cursor: pointer;
+  transform: translateY(0.10px);
+}
+
+.nav-profile-username {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: #2a5d2a;
+  text-decoration: underline;
+  transform: translateY(-0.5px);
+
+}
+
+.nav-profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  transform: translateY(-1px);
+}
+
+.nav-profile-dropdown {
+  position: absolute;
+  background: #f8f9fa;
+  border: 1px solid #47663B;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #2a5d2a;
+  margin-top: 5px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: auto;
+
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.nav-profile-dropdown.active {
+  opacity: 1;
+  max-height: 200px; /* Adjust as needed */
+}

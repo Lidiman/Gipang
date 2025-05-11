@@ -18,14 +18,19 @@ if (isset($_POST["create"])) {
     if (!empty($_FILES['image']['name'])) {
         $file_name = basename($_FILES['image']['name']);
         $tempname = $_FILES['image']['tmp_name'];
-        $folder = '../IMG/' . $file_name;
+        $upload_dir = '../img/profile/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        $target_file = $upload_dir . uniqid() . '_' . $file_name;
 
-        if (move_uploaded_file($tempname, $folder)) {
+        if (move_uploaded_file($tempname, $target_file)) {
+            $img_dir = 'img/profile/' . basename($target_file);
             $stmt = $conn->prepare("INSERT INTO images (IMG_DIR) VALUES (?)");
             if (!$stmt) {
                 die("Error preparing image insert: " . $conn->error);
             }
-            $stmt->bind_param("s", $file_name);
+            $stmt->bind_param("s", $img_dir);
             $stmt->execute();
             $img_id = $conn->insert_id;
             $stmt->close();

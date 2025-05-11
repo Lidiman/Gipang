@@ -4,7 +4,7 @@ body{
     align-items: center;
     min-height: 100vh;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(255, 0, 0);
+    background: linear-gradient(135deg, #a5d6a7, #66bb6a);
 }
 
 .in{

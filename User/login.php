@@ -1,27 +1,33 @@
 <?php
 session_start();
 
-// If already logged in and is admin, redirect to crud panel
+// Redirect logged in users to appropriate pages
 if (isset($_SESSION["logged"]) && $_SESSION["logged"] === true && isset($_SESSION['username'])) {
-    header("Location: ../ADMIN/index.php");
+    if ($_SESSION["status"] === 'Admin') {
+        header("Location: ../ADMIN/index.php");
+    } else {
+        header("Location: ../index.php");
+    }
     exit();
 }
 
+$error_message = "";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_var(trim($_POST['username']), FILTER_SANITIZE_STRING);
-    $passw = $_POST['pw']; 
+    $password = $_POST['pw'] ?? '';
 
     $host = "localhost";
     $user = "root";
     $pass = "";
     $dbname = "gipang";
-    $conn = mysqli_connect($host, $user, $pass, $dbname);
 
+    $conn = new mysqli($host, $user, $pass, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("SELECT * FROM user WHERE US_NAME = ?");
+    $stmt = $conn->prepare("SELECT US_NAME, US_PW, US_STATUS FROM user WHERE US_NAME = ?");
     if (!$stmt) {
         die("Prepare failed: " . $conn->error);
     }
@@ -31,22 +37,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        if ($passw === $row['US_PW']) {
+        // Use password_verify if passwords are hashed, else fallback to plain comparison
+        if (password_verify($password, $row['US_PW']) || $password === $row['US_PW']) {
             $_SESSION['username'] = $username;
             $_SESSION["logged"] = true;
             $_SESSION["status"] = $row['US_STATUS'];
-            
+
             if ($row['US_STATUS'] === 'Admin') {
                 header('Location: ../ADMIN/index.php');
                 exit();
-            } else if ($row['US_STATUS'] === 'User') {
-                echo "<p style='color:green;'>Login as user completed</p>";
+            } else {
+                header('Location: ../index.php');
+                exit();
             }
         } else {
-            echo "<p style='color:red;'>Invalid password. Please try again.</p>";
+            $error_message = "Invalid password. Please try again.";
         }
     } else {
-        echo "<p style='color:red;'>No user found with that username. Please register.</p>";
+        $error_message = "No user found with that username. Please register.";
     }
 
     $stmt->close();
@@ -60,7 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" href="FIRMAN.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="login.css">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <body>
     <video autoplay muted loop id="myVideo">
@@ -81,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="coco">
                     <label><input type="checkbox" class="check">Remember me</label>
-                    <a href="main.html" class="link-d">Register</a>
+                    <a href="../Register/Reg.php" class="link-d">Register</a>
                 </div>
                 <div class="masuk">
                     <button type="submit" class="btn">Sign in</button>

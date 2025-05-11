@@ -1,0 +1,16 @@
+/* Styles for AddFood select section fd_stat */
+#fd_stat {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #81c784;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+#fd_stat:focus {
+    border-color: #388e3c;
+    outline: none;
+}

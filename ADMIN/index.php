@@ -64,18 +64,18 @@ if (isset($_GET['delete'])) {
             <th>Actions</th>
         </tr>
         <?php
-$sql = "SELECT user.US_ID, user.US_NAME, user.US_EMAIL, user.US_PW, user.US_STATUS, images.IMG_ID, images.IMG_DIR FROM user INNER JOIN images ON user.IMG = images.IMG_ID;
-";
-$result = $conn->query($sql);
-if ($result && $result->num_rows > 0) {
+        $sql = "SELECT user.US_ID, user.US_NAME, user.US_EMAIL, user.US_PW, user.US_STATUS, images.IMG_ID, images.IMG_DIR FROM user LEFT JOIN images ON user.IMG = images.IMG_ID";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                $img_path = $row['IMG_DIR'];
                 echo "<tr>
                         <td>{$row['US_ID']}</td>
                         <td>{$row['US_NAME']}</td>
                         <td>{$row['US_EMAIL']}</td>
                         <td>{$row['US_PW']}</td>             
                         <td>{$row['US_STATUS']}</td>
-                        <td><img src='IMG/{$row['IMG_DIR']}' alt='Girl in a jacket' width='200' height='100'></td>
+                        <td><img src='{$img_path}' alt='Profile Picture' width='100' height='100'></td>
                         <td>
                             <a href='edit/index.php?edit={$row['US_ID']}'>Edit</a>
                             <a href='index.php?delete={$row['US_ID']}' onclick='return confirm(\"Are you sure you want to delete this record?\");'>Delete</a>
@@ -83,7 +83,7 @@ if ($result && $result->num_rows > 0) {
                       </tr>";
             }
         } else {
-            echo "<tr><td colspan='6'>No records found</td></tr>";
+            echo "<tr><td colspan='7'>No records found</td></tr>";
         }
 
         if (isset($_POST["out"])) {
